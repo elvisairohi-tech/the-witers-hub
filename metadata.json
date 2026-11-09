@@ -1,0 +1,6 @@
+{
+  "name": "The Writer's Opus: Infinite Life",
+  "description": "An atmospheric 3D literary journey through a writer's life with an infinite mission engine, procedural mechanical typewriter, and poetic mindfulness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

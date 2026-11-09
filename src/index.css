@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-ink-950: #090a0d;
+  --color-ink-900: #10141a;
+  --color-ink-800: #1b212b;
+  --color-parchment-50: #fbf8f2;
+  --color-parchment-100: #f5efe3;
+  --color-parchment-200: #e8ddc7;
+  --color-amber-gold: #d4af37;
+  --color-wax-red: #9a2828;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0b0d11;
+  color: #ede8dc;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 18, 24, 0.4);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Literary text styling */
+.font-literary {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.font-typewriter {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: -0.02em;
+}
+
+/* Subtle gold foil shine effect */
+.gold-foil-text {
+  background: linear-gradient(135deg, #f7e6a7 0%, #d4af37 50%, #997818 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

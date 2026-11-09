@@ -1,0 +1,208 @@
+/**
+ * Infinite Mission & Literary Career Engine
+ * Generates an endless sequence of literary missions reflecting the milestones,
+ * emotional weather, and creative challenges of a writer's life.
+ */
+
+export interface MissionObjective {
+  id: string;
+  label: string;
+  current: number;
+  target: number;
+  unit: string;
+  completed: boolean;
+}
+
+export interface InfiniteChapter {
+  chapterNumber: number;
+  title: string;
+  subtitle: string;
+  genre: string;
+  themeQuote: {
+    text: string;
+    author: string;
+  };
+  promptText: string;
+  objectives: MissionObjective[];
+  rewardAcclaim: number;
+  rewardParchmentColor: string;
+  epiphanyReward: string;
+}
+
+export interface WriterStats {
+  careerWords: number;
+  chaptersCompleted: number;
+  currentChapterNum: number;
+  inspirationLevel: number; // 0 - 100
+  coffeeLevel: number; // 0 - 100
+  flowState: number; // 0 - 100
+  royaltiesEarned: number;
+  collectedMetaphors: string[];
+  unlockedAccolades: string[];
+  typingVelocity: number; // Characters per minute (CPM)
+  isMuseActive?: boolean; // Temporary rhythmic muse status
+}
+
+const CLASSIC_AUTHORS_QUOTES = [
+  { text: "There is no greater agony than bearing an untold story inside you.", author: "Maya Angelou" },
+  { text: "You must stay drunk on writing so reality cannot destroy you.", author: "Ray Bradbury" },
+  { text: "A word after a word after a word is power.", author: "Margaret Atwood" },
+  { text: "Write hard and clear about what hurts.", author: "Ernest Hemingway" },
+  { text: "Quiet people have the loudest minds.", author: "Virginia Woolf" },
+  { text: "I have always imagined that Paradise will be a kind of library.", author: "Jorge Luis Borges" },
+  { text: "A book must be the axe for the frozen sea within us.", author: "Franz Kafka" },
+  { text: "If there's a book that you want to read, but it hasn't been written yet, then you must write it.", author: "Toni Morrison" },
+  { text: "To write is to carve out a territory in the void.", author: "Italo Calvino" },
+  { text: "The art of writing is the art of discovering what you believe.", author: "Gustave Flaubert" },
+  { text: "Words are, of course, the most powerful drug used by mankind.", author: "Rudyard Kipling" },
+  { text: "Fill your paper with the breathings of your heart.", author: "William Wordsworth" },
+];
+
+const GENRES = [
+  "Magical Realism",
+  "Gothic Noir",
+  "Existential Reverie",
+  "Romantic Transcendentalism",
+  "Beat Stream-of-Consciousness",
+  "Modernist Solitude",
+  "Philosophical Vignette",
+  "Mythic Elegy",
+];
+
+const ADJECTIVES = [
+  "Obsidian", "Luminous", "Melancholy", "Forgotten", "Midnight",
+  "Astral", "Golden", "Silent", "Restless", "Velvet", "Uncharted", "Fragile"
+];
+
+const NOUNS = [
+  "Metaphor", "Parchment", "Solitude", "Cathedral", "Clockwork",
+  "Symphony", "Threshold", "Echo", "Sanctuary", "Labyrinth", "Constellation", "Dawn"
+];
+
+const INSPIRATIONAL_PROMPTS = [
+  "The rain fell against the mullioned bay window in soft, rhythmic cadences, each drop a syllable of an unuttered confession...",
+  "In the quiet between two breaths, the clock chimed three. The typewriter carriage sat expectant, holding a single crisp white sheet of vellum...",
+  "She remembered the bookstore on the Rue de Fleurus, where dust hung in sunbeams like pulverized gold from forgotten centuries...",
+  "It is said that every library has a shadow wing, where books not yet conceived murmur their titles to the solitary wanderer...",
+  "He struck the keys with measured deliberation. Each letter was a small brass hammer striking ribbon, anchoring an ephemeral thought into permanence...",
+  "Memory is a city rebuilt at night from salt and echoes. To write is to walk its empty boulevards with lantern in hand...",
+  "The cup of dark roast had cooled to lukewarm, but the sentence was finally taking flight, unburdened by the doubts of the morning...",
+  "Beneath the brass green shade of the banker lamp, the world ceased to exist except for the five inches surrounding the typed line...",
+  "We write not to escape the world, but to restore to it the astonishment that daily life so ruthlessly strips away...",
+  "A draft is simply an act of faith—a promise made by the midnight mind that dawn will recognize as beauty...",
+];
+
+const METAPHOR_POOL = [
+  "Ink is condensed midnight poured through a steel nib",
+  "A sentence is a suspension bridge built across silence",
+  "The typewriter carriage return is a sigh of temporary triumph",
+  "Rain on windowpane is nature's own punctuation mark",
+  "An unwritten chapter is a house whose lamps are lit, waiting for someone to unlock the door",
+  "The margin of a page is the quiet courtyard where thoughts pause to breathe",
+  "A metaphor is two strangers meeting in a dark hallway and realizing they share the same dream",
+  "Coffee is liquid dawn poured into a porcelain cup",
+  "Doubt is merely the friction generated by deep momentum",
+];
+
+export function generateInfiniteChapter(chapterNum: number): InfiniteChapter {
+  const quote = CLASSIC_AUTHORS_QUOTES[(chapterNum - 1) % CLASSIC_AUTHORS_QUOTES.length];
+  const genre = GENRES[(chapterNum - 1) % GENRES.length];
+
+  let title = "";
+  let subtitle = "";
+
+  if (chapterNum === 1) {
+    title = "The Blank Page & The First Key";
+    subtitle = "Awaken the silent mechanism of the typewriter";
+  } else if (chapterNum === 2) {
+    title = "Midnight Coffee & The Solitary Room";
+    subtitle = "Build your creative momentum through the quiet hours";
+  } else if (chapterNum === 3) {
+    title = "The Editor's Red Ink & The Razor of Revision";
+    subtitle = "Prune the excess to reveal the jewel underneath";
+  } else if (chapterNum === 4) {
+    title = "The Whispering Wastepaper Basket";
+    subtitle = "Reclaim abandoned fragments and transform them into prose";
+  } else if (chapterNum === 5) {
+    title = "The Parisian Salon of 1928";
+    subtitle = "Read aloud your freshly typed passage to imaginary peers";
+  } else {
+    const adj = ADJECTIVES[(chapterNum * 7 + 3) % ADJECTIVES.length];
+    const noun = NOUNS[(chapterNum * 5 + 1) % NOUNS.length];
+    title = `The ${adj} ${noun}`;
+    subtitle = `A study in ${genre.toLowerCase()} and the alchemy of words`;
+  }
+
+  const promptText = INSPIRATIONAL_PROMPTS[(chapterNum - 1) % INSPIRATIONAL_PROMPTS.length];
+  const targetWords = 40 + (chapterNum * 12);
+  const targetEpiphanies = 2 + (chapterNum % 4);
+  const targetFlow = Math.min(85, 45 + (chapterNum % 5) * 8);
+
+  const objectives: MissionObjective[] = [
+    {
+      id: "words",
+      label: "Draft Chapter Words",
+      current: 0,
+      target: targetWords,
+      unit: "words",
+      completed: false,
+    },
+    {
+      id: "flow",
+      label: "Attain Peak Flow State",
+      current: 0,
+      target: targetFlow,
+      unit: "%",
+      completed: false,
+    },
+    {
+      id: "epiphany",
+      label: "Capture Poetic Sparks",
+      current: 0,
+      target: targetEpiphanies,
+      unit: "sparks",
+      completed: false,
+    },
+  ];
+
+  const parchmentColors = [
+    "#fbf8f2",
+    "#f6f0e4",
+    "#f3ebd8",
+    "#f9f5ed",
+    "#e8dfcf",
+  ];
+
+  return {
+    chapterNumber: chapterNum,
+    title,
+    subtitle,
+    genre,
+    themeQuote: quote,
+    promptText,
+    objectives,
+    rewardAcclaim: 100 + chapterNum * 35,
+    rewardParchmentColor: parchmentColors[(chapterNum - 1) % parchmentColors.length],
+    epiphanyReward: METAPHOR_POOL[(chapterNum - 1) % METAPHOR_POOL.length],
+  };
+}
+
+export const INITIAL_WRITER_STATS: WriterStats = {
+  careerWords: 0,
+  chaptersCompleted: 0,
+  currentChapterNum: 1,
+  inspirationLevel: 80,
+  coffeeLevel: 100,
+  flowState: 30,
+  royaltiesEarned: 0,
+  collectedMetaphors: [
+    "A word after a word after a word is power.",
+    "Ink is condensed midnight poured through a steel nib."
+  ],
+  unlockedAccolades: [
+    "Initiate of the Brass Platen",
+    "Midnight Solitary"
+  ],
+  typingVelocity: 0,
+  isMuseActive: false,
+};
